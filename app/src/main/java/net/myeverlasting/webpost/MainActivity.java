@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void send(View v){
-        String disama = ama.getText().toString();
+        final String disama = ama.getText().toString();
         if(disama.length() > 0){
             String url = "https://stageserv.interswitchng.com/test_paydirect/pay";
             //String url = "https://myeverlasting.net/api/addmerchant/";
@@ -75,19 +75,14 @@ public class MainActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String resp) {
-                                try {
-                                    JSONObject jsonresponse = new JSONObject(resp).getJSONObject("form");
-                                    String site = jsonresponse.getString("site"),
-                                            network = jsonresponse.getString("network");
-                                    System.out.println("Site: " + site + "\nNetwork: " + network);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                tryit.setText(resp);
+                              
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError volleyError) {
+                                System.out.println("Error ["+volleyError+"]");
                                 volleyError.printStackTrace();
                             }
                         }
@@ -98,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
                         Map<String, String>  params = new WeakHashMap<>();
                         // the POST parameters:
                         params.put("product_id", "6205");
-						params.put("pay_item_id", "101");
-						params.put("currency", "566");
-						params.put("txn_ref", "1234567YU");
-						params.put("site_redirect_url", "http://localhost/lotto/tpay.php");
-						params.put("hash", "566");
-						params.put("cust_name", "Demo Test");
-                        params.put("amount", "200000");
+                        params.put("pay_item_id", "101");
+                        params.put("currency", "566");
+                        params.put("txn_ref", "1234567YU");
+                        params.put("site_redirect_url", "http://localhost/lotto/tpay.php");
+                        params.put("hash", "566");
+                        params.put("cust_name", "Demo Test");
+                        params.put("amount", disama);
                         return params;
                     }
                 };
@@ -150,50 +145,6 @@ public class MainActivity extends AppCompatActivity {
 
             return null;
         }
-        public void sendme(View v){
-            String disama = "2000";
-            if(disama.length() > 0){
-                HttpsURLConnection conn;
-
-                    String url = "https://stageserv.interswitchng.com/test_paydirect/pay";
-                    StringRequest postrequest = new StringRequest(Request.Method.POST, url,
-                            new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String resp) {
-                                    try {
-                                        JSONObject jsonresponse = new JSONObject(resp).getJSONObject("form");
-                                        String site = jsonresponse.getString("site"),
-                                                network = jsonresponse.getString("network");
-                                        System.out.println("Site: " + site + "\nNetwork: " + network);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError volleyError) {
-                                    volleyError.printStackTrace();
-                                }
-                            }
-                    ){
-                        @Override
-                        protected Map<String, String> getParams()
-                        {
-                            Map<String, String>  params = new WeakHashMap<>();
-                            // the POST parameters:
-                            params.put("product_id", "6205");
-                            params.put("amount", "200000");
-                            return params;
-                        }
-                    };
-        
-
-
-
-            }
-
-
-        }
+      
     }
 }

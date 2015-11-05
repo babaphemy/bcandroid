@@ -56,77 +56,6 @@ public class MainActivity extends AppCompatActivity {
         dopay = (Button) findViewById(R.id.pay);
         tryit = (TextView) findViewById(R.id.mesag);
 
-        View.OnClickListener webpaylistener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //tryit.setText("oya baby komole !!!");
-                String disama = ama.getText().toString();
-                if(disama.length() > 0){
-                    HttpsURLConnection conn;
-
-                    try{
-                        URL url=new URL("https://myeverlasting.net/api/addmerchant/");
-
-                      //  String param="businesscategory=" + URLEncoder.encode("6205", "UTF-8")+
-                             //   "&companyname="+URLEncoder.encode("101","UTF-8")+
-                            //    "&lastname="+URLEncoder.encode(disama, "UTF-8")+
-                           //     "&firstname="+URLEncoder.encode("566","UTF-8");
-                        conn = (HttpsURLConnection) url.openConnection();
-                        conn.setDoOutput(true);
-                        conn.setRequestMethod("POST");
-                        // conn.setRequestProperty("Content-Length", length);
-                     //   conn.setFixedLengthStreamingMode(param.getBytes().length);
-                       // conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                       // PrintWriter out = new PrintWriter(conn.getOutputStream());
-                       // out.print(param);
-                      //  out.close();
-
-
-                        //conn.setReadTimeout(10000);
-                        //conn.setConnectTimeout(15000);
-
-                        //conn.setDoInput(true);
-
-               Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("product_id", "6205")
-                        .appendQueryParameter("pay_item_id", "101")
-                        .appendQueryParameter("currency", "566")
-                        .appendQueryParameter("amount", disama)
-                        .appendQueryParameter("txn_ref", "3453001")
-                        .appendQueryParameter("site_redirect_url", "webpost");
-                String query = builder.build().getEncodedQuery();
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writter = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8")
-                );
-                writter.write(query);
-                writter.flush();
-                writter.close();
-                os.close();
-
-                conn.connect();
-
-                    } catch (MalformedURLException e){
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-
-
-                }
-
-
-
-            }
-        };
-        //dopay.setOnClickListener(webpaylistener);
-
-
-
-
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,8 +97,14 @@ public class MainActivity extends AppCompatActivity {
                     {
                         Map<String, String>  params = new WeakHashMap<>();
                         // the POST parameters:
-                        params.put("firstname", "6205");
-                        params.put("company", "200000");
+                        params.put("product_id", "6205");
+						params.put("pay_item_id", "101");
+						params.put("currency", "566");
+						params.put("txn_ref", "1234567YU");
+						params.put("site_redirect_url", "http://localhost/lotto/tpay.php");
+						params.put("hash", "566");
+						params.put("cust_name", "Demo Test");
+                        params.put("amount", "200000");
                         return params;
                     }
                 };
@@ -220,8 +155,6 @@ public class MainActivity extends AppCompatActivity {
             if(disama.length() > 0){
                 HttpsURLConnection conn;
 
-             //   try{
-                    //URL url=new URL("https://stageserv.interswitchng.com/test_paydirect/pay");
                     String url = "https://stageserv.interswitchng.com/test_paydirect/pay";
                     StringRequest postrequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
@@ -254,55 +187,7 @@ public class MainActivity extends AppCompatActivity {
                             return params;
                         }
                     };
-                   // RequestQueue rque = Volley.newRequestQueue(this);
-                   // rque.add(postrequest);
-
-
-
-                  /*  String param="businesscategory=" + URLEncoder.encode("6205", "UTF-8")+
-                            "&companyname="+URLEncoder.encode("101","UTF-8")+
-                            "&lastname="+URLEncoder.encode(disama, "UTF-8")+
-                            "&firstname="+URLEncoder.encode("566","UTF-8");
-                    conn = (HttpsURLConnection) url.openConnection();
-                    conn.setDoOutput(true);
-                    conn.setRequestMethod("POST");
-                    // conn.setRequestProperty("Content-Length", length);
-                    conn.setFixedLengthStreamingMode(param.getBytes().length);
-                    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                    PrintWriter out = new PrintWriter(conn.getOutputStream());
-                    out.print(param);
-                    out.close();
-
-
-                    //conn.setReadTimeout(10000);
-                    //conn.setConnectTimeout(15000);
-
-                    //conn.setDoInput(true);
-
-               /* Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("product_id", "6205")
-                        .appendQueryParameter("pay_item_id", "101")
-                        .appendQueryParameter("currency", "566")
-                        .appendQueryParameter("amount", disama)
-                        .appendQueryParameter("txn_ref", "3453001")
-                        .appendQueryParameter("site_redirect_url", "webpost");
-                String query = builder.build().getEncodedQuery();
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writter = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8")
-                );
-                writter.write(query);
-                writter.flush();
-                writter.close();
-                os.close();
-
-                conn.connect();*/
-
-             //   } catch (MalformedURLException e){
-               //     e.printStackTrace();
-              //  } catch (IOException e) {
-                //    e.printStackTrace();
-              //  }
+        
 
 
 

@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                         params.put("product_id", "6205");
                         params.put("pay_item_id", "101");
                         params.put("currency", "566");
-                        params.put("txn_ref", "1234567YU");
+                        params.put("txn_ref", "123erere7YU");
                         params.put("site_redirect_url", "http://localhost/lotto/tpay.php");
                         params.put("hash", "566");
                         params.put("cust_name", "Demo Test");
